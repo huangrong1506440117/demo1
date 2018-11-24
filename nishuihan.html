@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keyword" content="逆水寒，背景，联动">
+    <meta name="description" content="">
+    <title>逆水寒-背景图片联动</title>
+    <style>
+         body{margin:0;}
+        .main{ 
+            position: relative;
+            width : 1400px;
+            height: 700px;
+            margin: 50px auto;
+        }
+        .main section{/*后代选择器 空格隔开*/
+            /* 父相子绝 */
+            position: absolute; /*绝对定位*/
+            width:100%;/*继承父级的宽度*/
+            height:100%;
+            top:0;
+            left:0;
+            background-image:url("img/4.webp");
+            background-repeat: no-repeat;
+            opacity: 0; /*0完全透明，1不透明*/
+            transition-duration: 3s;
+        }
+        .main section.on{
+            opacity: 1;
+        }
+        /*结构性伪类选择器
+            section的父级的儿子当中的第二个
+        */
+        .main section:nth-child(2){
+            background-image:url("img/1.webp");
+        }
+        .main section:nth-child(3){
+            background-image:url("img/2.webp");
+        }
+        .main section:nth-child(4){
+            background-image:url("img/3.webp");
+        }
+        .main nav{
+            position: absolute;
+            width: 260px;
+            height: 554px;
+            padding-top: 154px;
+            padding-left: 34px;
+            right: 0;
+            top:-50px;
+            background-image:url("img/bg-nav.png");
+            background-repeat: no-repeat;
+            z-index:5; /*层级*/
+        }
+        .main nav a{
+            display: block;/*元素转换：块级 才能设置宽高 a标签不支持宽高*/
+            float: left;/*浮动，让元素横着排列*/
+            width:35px;
+            height:147px;
+            margin-right: 19px;/*右外边距*/
+            background-image:url("img/feature-nav.png");
+            background-repeat: no-repeat;
+            background-position: 0px -187px;
+        }
+        nav a:nth-child(1).on{
+            height: 190px;
+            background-position: 0px 0px;
+        }
+        nav a:nth-child(2){
+            background-position: -54px -187px;
+        }
+        nav a:nth-child(2).on{
+            height: 190px;
+            background-position: -54px 0px;
+        }
+        nav a:nth-child(3){
+            background-position: -107px -187px;
+        }
+        nav a:nth-child(3).on{
+            height: 190px;
+            background-position: -107px 0px;
+        }
+        nav a:nth-child(4){
+            background-position: -161px -187px;
+        }
+        nav a:nth-child(4).on{
+            height: 190px;
+            background-position: -161px 0px;
+        }
+    </style>
+</head>
+<body>
+    <article class="main">
+        <section class="on"></section>
+        <section></section>
+        <section></section>
+        <section></section>
+        <nav>
+            <a href="" class="on"></a>
+            <a href=""></a>
+            <a href=""></a>
+            <a href=""></a>
+        </nav>
+    </article>
+    <script>
+        // 获取鼠标滑过的的标题，存入aA这个元素
+        let aA = document.querySelectorAll("nav a")
+        // 获取背景图片原始，存入aSection
+        let aSection = document.querySelectorAll("article section")
+        console.log(aSection)
+        let index = 0
+        for(let i=0;i<aA.length;i++){
+            // 循环给每一个标题添加鼠标滑过事件
+            aA[i].onmouseenter = function(){
+                //标题的鼠标移入时间
+                //去除上一个标题元素的类名 on
+                aA[index].className=""
+                //去除背景图片的类名
+                aSection[index].className=""
+                index=i;
+                aA[index].className="on"
+                aSection[index].className="on"
+                
+            }
+        }
+    </script>
+    
+</body>
+</html>
